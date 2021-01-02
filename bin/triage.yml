@@ -1,0 +1,127 @@
+---
+params:
+  base_params: &base_params
+  - archived:false
+  - sort:created-asc
+  unassigned: &unassigned
+  - no:assignee
+  - -label:"help wanted"
+  open_issue: &open_issue
+  - is:issue
+  - is:open
+  open_pr: &open_pr
+  - is:pr
+  - is:open
+  missing_scope: &missing_scope
+  - -label:bug
+  - -label:"bug/sporadic test failure"
+  - -label:cleanup
+  - -label:developer
+  - -label:documentation
+  - -label:enhancement
+  - -label:performance
+  - -label:redesign
+  - -label:refactoring
+  - -label:"technical debt"
+  - -label:test
+  stale: &stale
+  - label:stale
+  questions: &questions
+  - label:question
+  - label:"feedback requested"
+  no_wip: &no_wip
+  - -label:wip
+  backport_request_jansa: &backport_request_jansa
+  - is:merged
+  - is:pr
+  - label:jansa/yes?
+  backport_direct_prs_jansa: &backport_direct_prs_jansa
+  - base:jansa
+  - is:open
+  - is:pr
+  - -label:jansa/no
+  - -label:jansa/yes
+  backport_request_kasparov: &backport_request_kasparov
+  - is:merged
+  - is:pr
+  - label:kasparov/yes?
+  backport_direct_prs_kasparov: &backport_direct_prs_kasparov
+  - base:kasparov
+  - is:open
+  - is:pr
+  - -label:kasparov/no
+  - -label:kasparov/yes
+repos:
+  - name: Core/Provider
+    params:
+    - org:ManageIQ
+    # Ignore certain repos
+    - -repo:ManageIQ/bugzilla_mirror
+    - -repo:ManageIQ/manageiq-consumption
+    - -repo:ManageIQ/manageiq-cross_repo-tests
+    - -repo:ManageIQ/manageiq-design
+    - -repo:ManageIQ/manageiq-performance
+    - -repo:ManageIQ/manageiq-release
+    - -repo:ManageIQ/manageiq-v2v
+    - -repo:ManageIQ/manageiq-v2v-conversion_host
+    - -repo:ManageIQ/manageiq-v2v-conversion_host-build
+    - -repo:ManageIQ/manageiq-vagrant-dev
+    - -repo:ManageIQ/miq_bot
+    - -repo:ManageIQ/polisher
+    # Ignore QE repos
+    - -repo:ManageIQ/integration_tests
+    - -repo:ManageIQ/integration_tests_playbooks
+    # Ignore some docs repos
+    - -repo:ManageIQ/manageiq-lxca-docs
+    - -repo:ManageIQ/manageiq-nuage-docs
+    - -repo:ManageIQ/manageiq-redfish-docs
+    - -repo:ManageIQ/manageiq-vcloud-docs
+links:
+- name: Unassigned issues
+  params:
+  - *base_params
+  - *open_issue
+  - *unassigned
+- name: Issues without scope label
+  params:
+  - *base_params
+  - *open_issue
+  - *missing_scope
+- name: Stale issues
+  params:
+  - *base_params
+  - *open_issue
+  - *stale
+- name: Unassigned PRs
+  params:
+  - *base_params
+  - *open_pr
+  - *no_wip
+  - *unassigned
+- name: PRs without scope label
+  params:
+  - *base_params
+  - *open_pr
+  - *no_wip
+  - *missing_scope
+- name: Stale PRs
+  params:
+  - *base_params
+  - *open_pr
+  - *stale
+- name: Backport requests (Jansa)
+  params:
+  - *base_params
+  - *backport_request_jansa
+- name: Backport direct PRs (Jansa)
+  params:
+  - *base_params
+  - *backport_direct_prs_jansa
+- name: Backport requests (Kasparov)
+  params:
+  - *base_params
+  - *backport_request_kasparov
+- name: Backport direct PRs (Kasparov)
+  params:
+  - *base_params
+  - *backport_direct_prs_kasparov

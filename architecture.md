@@ -2,6 +2,7 @@
 
 * [Source Code Layout](architecture/source_code_layout.md)
 * [Enterprise Architecture](architecture/enterprise.md)
+* [Providers and Workers](architecture/providers_overview.md)
 
 ## Appliance Contents
 
@@ -99,7 +100,7 @@
 
 ## Database Architecture
 
-[Detailed Providers database architecturee](architecture/providers_database_architecture.md)
+[Detailed Providers database architecture](architecture/providers_database_architecture.md)
 
 * Schema Layout
   * 64-bit ids
